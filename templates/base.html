@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>{% block title %}{% endblock %} - Template</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap-theme.min.css" />
+    <link type="text/css" rel="stylesheet" href="/static/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="/static/css/jquery.sidr.light.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+    <meta name="description" content="">
+    <meta name="" >
+  </head>
+  <body>
+      <div class='header'>
+        <div class='band'></div>
+        <img src="/static/img/playstore.svg">
+      </div>
+      
+      <p id='menu_btn' href='#sidr'></p>
+      <div id="sidr">
+        <!-- Your content -->
+        <ul>
+          <li class='top'><b>Categories</b></li>
+          <li><a href="/India">India</a></li>
+          <li><a href="/World">World</a></li>
+          <li><a href="/Entertainment">Entertainment</a></li>
+          <li><a href="/Technology">Technology</a></li>
+          <li><a href="/Business">Business</a></li>
+          <li><a href="/Science">Science</a></li>
+          <li><a href="/Sports">Sports</a></li>
+          <li><a href="/Health">Health</a></li>
+        </ul>
+      </div>
+      <hr class='hr'>
+
+      <div class="content">
+          {% block content %}{% endblock %}
+      </div>
+      
+      <div class="footer">
+      </div>
+
+      <script src='/static/js/jquery-1.10.2.min.js'></script>
+      <script src='/static/js/jquery.sidr.min.js'></script>
+      <script src='/static/js/script.js'></script>
+      <script src='/static/js/bootstrap.min.js'></script>
+      <script src='/static/js/prefixfree.min.js'></script>
+
+  </body>
+</html>

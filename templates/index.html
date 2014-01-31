@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block title %}{% endblock %}
+
+{% block content %}
+	{{cat}}
+	{% for i in data %}
+			<div class='item'>
+				<a href='/v/{{i['id']}}'>
+					<p class='title'> >> {{i['title'][6:]}}</p>
+				</a>
+				<p class='source'>{{i['source']}}</p>
+				<p class='date'>{{i['date']}}</p>
+			</div>           
+	{% endfor %}
+{% endblock %}
