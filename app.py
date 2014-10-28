@@ -1,6 +1,7 @@
 import flask, flask.views
 from flask import request
 import os
+import feedparser
 app = flask.Flask(__name__)
 
 @app.route('/')
@@ -9,35 +10,26 @@ def index():
 
 @app.route('/<category>')
 def catpage(category):
-    path = 'summary.txt'
-    f= open(path)
-    data = eval( f.read() )['summary']
-    f.close()
-    data = [i for i in data[1:] if i['category'] == category]
-    return flask.render_template('index.html',data=data,cat=category)
-
-@app.route('/v/<id>')
-def newspage(id):
-    path = 'summary.txt'
-    f= open(path)
-    data = eval( f.read() )['summary']
-    f.close()
-    data = [i for i in data[1:] if i['id'] == id][0]
-    data['summary'] = data['summary'].split('\n\n')
-    return flask.render_template('news.html',data=data)
-
-'''
-class Main(flask.views.MethodView):
-    def get(self):
-        path = 'summary.txt'
-        cat = user = request.args.get('cat')
-        f= open(path)
-        data = eval( f.read() )['summary']
-        f.close()
-        data = [i for i in data[1:] if i['category'] == cat]
-        return flask.render_template('index.html',data=data,cat=cat)
+    #,w,n,b,e,s,h
+    url = 'https://news.google.com/news/feeds?cf=all&hl=hi&output=rss&ned=hi_in&topic=%s'%(category)
+    if category == "all":
+        url = 'https://news.google.com/news/feeds?cf=all&hl=hi&output=rss&ned=hi_in'
     
-app.add_url_rule('/', view_func=Main.as_view('main'), methods=['GET', 'POST'])
-'''
+    rss = feedparser.parse(url)
+    arr =[]
+    for item in rss['entries']:
+        link = item['link']
+        d= {}    
+        #removing the google stuff from the url
+        d['link'] = link[link.rfind('&url=')+5:]
+        d['title'] = item['title']
+        d['description'] = item['description']
+        n = d['title'].rfind('-')
+        d['source'] = d['title'][n+1: ]
+        d['title'] = d['title'][:n]
+        arr.append(d)
+    
+    return flask.render_template('category.html',data=arr,cat=category)
+
 app.debug = True
 app.run()
