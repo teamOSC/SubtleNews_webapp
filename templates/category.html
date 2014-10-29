@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 
+{% block css %}
+<style type="text/css">
+	
+</style>
+{% endblock %}
 
 {% block title %}{% endblock %}
 
 {% block content %}
-	{{cat}}
+	
 	{% for i in data %}
+		<a href='{{i['link']}}'>
 			<div class='item'>
-				<a href='https://www.instapaper.com/text?u={{i['link']}}'>
-					<p class='title'> >> {{i['title']}}</p>
-				</a>
-				<p class='source'>{{i['source']}}</p>
-				<p class='date'>{{i['date']}}</p>
+				<p class='source'>&nbsp; {{i['source']}}</p>
+				<p class='title'> » {{i['title']}}</p>
+				<p class='date'>&nbsp; {{i['date']}}</p> 
+				
 			</div>           
+		</a>
 	{% endfor %}
 {% endblock %}
