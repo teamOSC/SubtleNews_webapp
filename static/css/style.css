@@ -54,15 +54,14 @@ body {
 	background: ghostwhite;
 	margin: 10px 10px 16px 10px;
 	padding: 3px 3px 0px 3px;
-	//border: 1px dotted grey;
+	border: 1px dotted #ccc;
 	box-shadow: 4px 4px 1px 1px #ccc;
 }
-.content>a>.item>.title{
+.title{
 	font-weight: bolder;
-	font-size: 20px;
+	font-size: 18px;
 }
 .content>a>.item>.source{
-	//text-align: right;
 	font-size: 11px;
 	color:grey;
 }
@@ -70,4 +69,8 @@ body {
 	font-size: 11x;
 	text-align: right;
 	color:grey;
+}
+
+.img_column{
+	width:25%;
 }
