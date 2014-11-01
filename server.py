@@ -66,7 +66,6 @@ def get_image(desc):
     img = temp.split('"')[0]
     if not img.startswith("https://t"):
         img = "http://i.imgur.com/KU1vsAS.png"
-    print img
     return img
 
 def scrape_news():
@@ -206,7 +205,7 @@ def scrape_videos():
                 url = video['id']['$t']
                 d['id'] = url.split('/')[-1]
                 d['url'] = "http://www.youtube.com/embed/%s?autoplay=1"%d['id']
-                print d['id']
+                #print d['id']
                 master_videos.append(d) 
                 videos.append(d)
         except:
@@ -284,8 +283,7 @@ def aboutpage():
 
 
 if __name__ == '__main__':
-    print CURR_PATH
-    #app.debug = True
-    #app.run(host='0.0.0.0',port=5000)
+    app.debug = True
+    app.run(host='0.0.0.0',port=5000)
 
 
