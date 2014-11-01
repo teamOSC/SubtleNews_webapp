@@ -14,6 +14,10 @@ import logging
 import random
 app = flask.Flask(__name__)
 
+# path of the current directory
+global CURR_PATH
+CURR_PATH = os.path.dirname(os.path.realpath(__file__))
+
 def pretty_date(time=False):
     """
     Get a datetime object or a int() Epoch timestamp and return a
@@ -215,22 +219,22 @@ def scrape_videos():
 
     return videos_dict
 
-with open("news.txt") as f:
+with open("%s/news.txt"%CURR_PATH) as f:
     try:    news_json = json.loads(f.read())
     except: scrape_news()
 
 @app.route('/refresh')
 def refresh():
     
-    with open('news.txt','w+') as f:
+    with open('%s/news.txt'%CURR_PATH,'w+') as f:
         f.write(json.dumps(scrape_news()))
     f.close()
     
-    with open('sources_news.txt','w+') as f:
+    with open('%s/sources_news.txt'%CURR_PATH,'w+') as f:
         f.write(json.dumps(scrape_sources()))
     f.close()
     
-    with open('videos.txt','w+') as f:
+    with open('%s/videos.txt'%CURR_PATH,'w+') as f:
         f.write(json.dumps(scrape_videos()))
     f.close()
     
@@ -245,8 +249,10 @@ def index():
 @app.route('/<category>')
 def catpage(category):
     #available categories ,w,n,b,e,s
-    return flask.render_template('category.html',data=news_json[category])
-
+    try:
+        return flask.render_template('category.html',data=news_json[category])
+    except:
+        pass
 
 @app.route('/sources')
 def sopage():
@@ -261,7 +267,7 @@ def so2page(site):
 
 @app.route('/videos')
 def videos():
-    with open("videos.txt") as f:
+    with open("%s/videos.txt"%CURR_PATH) as f:
         arr = json.loads(f.read())
     f = []
     for key,value in arr.iteritems():
@@ -278,7 +284,8 @@ def aboutpage():
 
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run(host='0.0.0.0',port=5000)
+    print CURR_PATH
+    #app.debug = True
+    #app.run(host='0.0.0.0',port=5000)
 
 
